@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import ProductCard from './components/ProductCard'
 
 export interface Product {
@@ -10,31 +12,52 @@ export interface Product {
 }
 
 function App() {
+    const [products, setProducts] = useState<Product[]>([])
+    const [isLoading, setIsLoading] = useState(false)
+    const [errors, setErrors] = useState<string | null>(null)
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                setIsLoading(true)
+                const response = await fetch('https://fakestoreapi.com/products')
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch products: ${response.status}`)
+                }
+                const data: Product[] = await response.json()
+                setProducts(data)
+            } catch (error) {
+                const errorMessage =
+                    error instanceof Error
+                        ? error.message
+                        : 'An unknown error occurred while loading the products'
+                setErrors(errorMessage)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        fetchProducts()
+    }, [])
+
+    if (errors) return <p>Ошибка: {errors}</p>
+    if (isLoading) return <p>Загрузка...</p>
+
     return (
         <>
-            <ProductCard
-                product={{
-                    id: 1,
-                    title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
-                    price: 109.95,
-                    description:
-                        'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
-                    category: "men's clothing",
-                    image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_t.png',
-                }}
-                oldPrice={129.99}
-            />
-            <ProductCard
-                product={{
-                    id: 2,
-                    title: 'Mens Casual Premium Slim Fit T-Shirts ',
-                    price: 22.3,
-                    description:
-                        'Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.',
-                    category: "men's clothing",
-                    image: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_t.png',
-                }}
-            />
+            {products.map(({ id, title, price, category, description, image }) => (
+                <ProductCard
+                    key={id}
+                    product={{
+                        id,
+                        title,
+                        price,
+                        description,
+                        category,
+                        image,
+                    }}
+                    oldPrice={129.99}
+                />
+            ))}
         </>
     )
 }
