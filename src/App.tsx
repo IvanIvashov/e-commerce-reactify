@@ -1,3 +1,5 @@
+import { Header } from './components/Header'
+
 import { useEffect, useState } from 'react'
 
 interface Product {
@@ -37,7 +39,7 @@ function App() {
         fetchProducts()
     }, [])
 
-    return <></>
+    return <Header />
 }
 
 export default App
