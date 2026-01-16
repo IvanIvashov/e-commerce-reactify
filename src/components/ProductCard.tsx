@@ -37,10 +37,10 @@ export default function ProductCard({ product, oldPrice }: ProductCardProps) {
 
             <CardMedia
                 component="img"
-                height="200"
+                // height="200"
                 image={product.image}
                 alt={product.title}
-                sx={{ objectFit: 'contain', p: 2 }}
+                sx={{ objectFit: 'contain', p: 2, height: 200 }}
             />
 
             <CardContent>
