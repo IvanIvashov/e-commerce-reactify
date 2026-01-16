@@ -1,3 +1,5 @@
+import { Header } from './components/Header'
+
 import { useEffect, useState } from 'react'
 
 import ProductCard from './components/ProductCard'
@@ -44,6 +46,7 @@ function App() {
 
     return (
         <>
+            <Header />
             {products.map(({ id, title, price, category, description, image }) => (
                 <ProductCard
                     key={id}
