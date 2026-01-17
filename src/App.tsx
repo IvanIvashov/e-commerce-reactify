@@ -14,15 +14,16 @@ export interface Product {
 }
 
 type ProductState =
-    | { state: 'loading' }
-    | { state: 'success'; products: Product[] }
-    | { state: 'error'; message: string }
+    | { status: 'loading' }
+    | { status: 'success'; products: Product[] }
+    | { status: 'error'; message: string }
 
-function isProduct(data: unknown): data is Product[] {
+function isProducts(data: unknown): data is Product[] {
     return (
         Array.isArray(data) &&
-        data.every((item) => {
-            typeof item === 'object' &&
+        data.every(
+            (item) =>
+                typeof item === 'object' &&
                 item !== null &&
                 'id' in item &&
                 'title' in item &&
@@ -30,12 +31,12 @@ function isProduct(data: unknown): data is Product[] {
                 'description' in item &&
                 'category' in item &&
                 'image' in item
-        })
+        )
     )
 }
 
 function App() {
-    const [products, setProducts] = useState<ProductState>({ state: 'loading' })
+    const [products, setProducts] = useState<ProductState>({ status: 'loading' })
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -45,13 +46,13 @@ function App() {
                     throw new Error(`Failed to fetch products: ${response.status}`)
                 }
                 const data: unknown = await response.json()
-                if (!isProduct(data)) {
+                if (!isProducts(data)) {
                     throw new Error('Error API Response')
                 }
-                setProducts({ state: 'success', products: data })
+                setProducts({ status: 'success', products: data })
             } catch (error) {
                 setProducts({
-                    state: 'error',
+                    status: 'error',
                     message:
                         error instanceof Error
                             ? error.message
@@ -62,15 +63,18 @@ function App() {
         fetchProducts()
     }, [])
 
-    switch (products.state) {
+    let content
+
+    switch (products.status) {
         case 'loading':
-            return <p>Загрузка...</p>
+            content = <p>Загрузка...</p>
+            break
         case 'error':
-            return <p>Ошибка: {products.message}</p>
+            content = <p>Ошибка: {products.message}</p>
+            break
         case 'success':
-            return (
+            content = (
                 <>
-                    <Header />
                     {products.products.map(({ id, title, price, category, description, image }) => (
                         <ProductCard
                             key={id}
@@ -87,10 +91,15 @@ function App() {
                     ))}
                 </>
             )
-
-        default:
-            return null
+            break
     }
+
+    return (
+        <>
+            <Header />
+            {content}
+        </>
+    )
 }
 
 export default App
