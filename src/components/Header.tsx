@@ -76,7 +76,18 @@ export function Header() {
                         </Button>
 
                         {/* Корзина */}
-                        <IconButton sx={{ color: 'white' }}>
+                        <IconButton
+                            disableRipple
+                            sx={{
+                                color: 'white',
+                                '& .MuiTouchRipple-root': {
+                                    borderRadius: '0',
+                                },
+                                '&:hover': {
+                                    backgroundColor: 'transparent',
+                                },
+                            }}
+                        >
                             <Badge badgeContent={3} color="error">
                                 <ShoppingCart />
                             </Badge>
