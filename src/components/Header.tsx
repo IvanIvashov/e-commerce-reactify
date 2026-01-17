@@ -77,21 +77,34 @@ export function Header() {
 
                         {/* Корзина */}
                         <IconButton
-                            disableRipple
                             sx={{
                                 color: 'white',
-                                '& .MuiTouchRipple-root': {
-                                    borderRadius: '0',
-                                },
+                                padding: '15px',
                                 '&:hover': {
                                     backgroundColor: 'transparent',
                                 },
+                                // Настройка ripple только при нажатии
+                                '& .MuiTouchRipple-root': {
+                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    // Можно настроить скорость анимации
+                                    animationDuration: '0.8s',
+                                },
                             }}
                         >
-                            <Badge badgeContent={3} color="error">
+                            <Badge
+                                badgeContent={3}
+                                color="error"
+                                sx={{
+                                    '& .MuiBadge-badge': {
+                                        fontSize: '10px', // Размер текста
+                                        height: '16px', // Высота бейджа
+                                        minWidth: '16px', // Минимальная ширина
+                                        padding: '0 4px', // Внутренние отступы
+                                    },
+                                }}
+                            >
                                 <ShoppingCart />
                             </Badge>
-                            <Typography sx={{ ml: 1, fontSize: '16px' }}>Cart</Typography>
                         </IconButton>
                     </Box>
                 </Toolbar>
