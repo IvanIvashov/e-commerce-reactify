@@ -2,7 +2,9 @@ import { Header } from './components/Header'
 
 import { useEffect, useState } from 'react'
 
-interface Product {
+import ProductCard from './components/ProductCard'
+
+export interface Product {
     id: number
     title: string
     price: number
@@ -39,7 +41,28 @@ function App() {
         fetchProducts()
     }, [])
 
-    return <Header />
+    if (errors) return <p>Ошибка: {errors}</p>
+    if (isLoading) return <p>Загрузка...</p>
+
+    return (
+        <>
+            <Header />
+            {products.map(({ id, title, price, category, description, image }) => (
+                <ProductCard
+                    key={id}
+                    product={{
+                        id,
+                        title,
+                        price,
+                        description,
+                        category,
+                        image,
+                    }}
+                    oldPrice={129.99}
+                />
+            ))}
+        </>
+    )
 }
 
 export default App
