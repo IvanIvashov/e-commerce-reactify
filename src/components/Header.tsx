@@ -91,7 +91,6 @@ export function Header() {
                             <Badge badgeContent={3} color="error">
                                 <ShoppingCart />
                             </Badge>
-                            <Typography sx={{ ml: 1, fontSize: '16px' }}>Cart</Typography>
                         </IconButton>
                     </Box>
                 </Toolbar>
