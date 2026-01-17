@@ -40,7 +40,6 @@ function App() {
         }
         fetchProducts()
     }, [])
-    console.log(products)
 
     if (errors) return <p>Ошибка: {errors}</p>
     if (isLoading) return <p>Загрузка...</p>
