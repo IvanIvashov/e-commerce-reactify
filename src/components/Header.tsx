@@ -91,7 +91,18 @@ export function Header() {
                                 },
                             }}
                         >
-                            <Badge badgeContent={3} color="error">
+                            <Badge
+                                badgeContent={3}
+                                color="error"
+                                sx={{
+                                    '& .MuiBadge-badge': {
+                                        fontSize: '10px', // Размер текста
+                                        height: '16px', // Высота бейджа
+                                        minWidth: '16px', // Минимальная ширина
+                                        padding: '0 4px', // Внутренние отступы
+                                    },
+                                }}
+                            >
                                 <ShoppingCart />
                             </Badge>
                         </IconButton>
