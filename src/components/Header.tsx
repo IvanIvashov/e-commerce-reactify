@@ -77,14 +77,17 @@ export function Header() {
 
                         {/* Корзина */}
                         <IconButton
-                            disableRipple
                             sx={{
                                 color: 'white',
-                                '& .MuiTouchRipple-root': {
-                                    borderRadius: '0',
-                                },
+                                padding: '15px',
                                 '&:hover': {
                                     backgroundColor: 'transparent',
+                                },
+                                // Настройка ripple только при нажатии
+                                '& .MuiTouchRipple-root': {
+                                    color: 'rgba(255, 255, 255, 0.7)',
+                                    // Можно настроить скорость анимации
+                                    animationDuration: '0.8s',
                                 },
                             }}
                         >
