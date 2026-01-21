@@ -1,7 +1,7 @@
 import { Card, CardContent, CardMedia, Typography, Box, Chip } from '@mui/material'
 import { useMemo } from 'react'
 
-import type { Product } from '../App'
+import type { Product } from '../types/productTypes'
 
 interface ProductCardProps {
     product: Product
