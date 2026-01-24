@@ -1,7 +1,7 @@
 import { Card, CardContent, CardMedia, Typography, Box, Chip } from '@mui/material'
 import { useMemo } from 'react'
 
-import type { Product } from '../App'
+import type { Product } from '../types/productTypes'
 
 interface ProductCardProps {
     product: Product
@@ -15,11 +15,13 @@ export default function ProductCard({ product, oldPrice }: ProductCardProps) {
 
     return (
         <Card
+            elevation={0}
             sx={{
                 width: 280,
                 borderRadius: 3,
                 position: 'relative',
-                boxShadow: 3,
+                border: '1px solid #F5F5F5',
+                // boxShadow: 3, // if hover
             }}
         >
             {oldPrice && (
@@ -37,10 +39,9 @@ export default function ProductCard({ product, oldPrice }: ProductCardProps) {
 
             <CardMedia
                 component="img"
-                // height="200"
                 image={product.image}
                 alt={product.title}
-                sx={{ objectFit: 'contain', p: 2, height: 200 }}
+                sx={{ objectFit: 'contain', p: 2, height: 200, backgroundColor: '#F5F5F5' }}
             />
 
             <CardContent>
@@ -49,7 +50,7 @@ export default function ProductCard({ product, oldPrice }: ProductCardProps) {
                 </Typography>
 
                 <Box display="flex" alignItems="center" gap={1}>
-                    <Typography variant="h6" color="text.primary">
+                    <Typography variant="h6" fontWeight="600" color="text.primary">
                         ₹{product.price}
                     </Typography>
 
