@@ -12,7 +12,11 @@ import {
 } from '@mui/material'
 import { Search, ShoppingCart, Person } from '@mui/icons-material'
 
-export function Header() {
+interface HeaderProps {
+    onClose: () => void
+}
+
+export function Header({ onClose }: HeaderProps) {
     return (
         <AppBar position="static" sx={{ bgcolor: '#1976d2' }}>
             <Container maxWidth="xl">
@@ -71,6 +75,7 @@ export function Header() {
                                 textTransform: 'none',
                                 fontSize: '16px',
                             }}
+                            onClick={onClose}
                         >
                             Sign Up/Sign In
                         </Button>

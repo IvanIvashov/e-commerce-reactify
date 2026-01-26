@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import type { Product } from './types/productTypes'
 import { parseProducts } from './utils/productParser'
-import ProductCarousel from './components/ProductCarousel'
+import AuthModal from './components/AuthModal'
 
 type ProductState =
     | { status: 'loading' }
@@ -51,10 +51,19 @@ function App() {
             break
     }
 
+    const [isOpen, setIsOpen] = useState(false)
+
+    const onSubmit = () => {
+        console.log('Submitted')
+        setIsOpen(false)
+    } // заглушка
+    const onClose = () => setIsOpen((prevState) => !prevState) // заглушка
+
     return (
         <>
-            <Header />
+            <Header onClose={onClose} />
             {content}
+            <AuthModal open={isOpen} onClose={onClose} onSubmit={onSubmit} />
         </>
     )
 }
