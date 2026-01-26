@@ -2,7 +2,6 @@ import { Header } from './components/Header'
 
 import { useEffect, useState } from 'react'
 
-import ProductCard from './components/ProductCard'
 import type { Product } from './types/productTypes'
 import { parseProducts } from './utils/productParser'
 import AuthModal from './components/AuthModal'
@@ -48,24 +47,7 @@ function App() {
             content = <p>Ошибка: {products.message}</p>
             break
         case 'success':
-            content = (
-                <>
-                    {products.products.map(({ id, title, price, category, description, image }) => (
-                        <ProductCard
-                            key={id}
-                            product={{
-                                id,
-                                title,
-                                price,
-                                description,
-                                category,
-                                image,
-                            }}
-                            oldPrice={129.99}
-                        />
-                    ))}
-                </>
-            )
+            content = <ProductCarousel title="Products" products={products.products} />
             break
     }
 
