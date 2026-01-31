@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import type { Product } from './types/productTypes'
 import { parseProducts } from './utils/productParser'
 import AuthModal from './components/AuthModal'
+import ProductCarousel from './components/ProductCarousel'
 
 type ProductState =
     | { status: 'loading' }
